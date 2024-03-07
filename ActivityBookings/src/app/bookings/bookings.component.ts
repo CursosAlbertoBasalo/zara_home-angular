@@ -30,11 +30,12 @@ export class BookingsComponent {
     return this.newParticipants === 0;
   }
 
-  public getBookedMessage(): string {
-    return `Booked ${this.totalParticipants} participants for ${
-      this.activity.price * this.totalParticipants
-    } dollars`;
-  }
+  public bookedMessage: string = '';
+  // public getBookedMessage(): string {
+  //   return `Booked ${this.totalParticipants} participants for ${
+  //     this.activity.price * this.totalParticipants
+  //   } dollars`;
+  // }
 
   public getParticipantsMessage(participant: any): string {
     return `Participant ${participant.id}: ${participant.name} (${participant.age} years old)`;
@@ -65,6 +66,9 @@ export class BookingsComponent {
   public onBookClick() {
     console.log('Reservar actividad', this.totalParticipants);
     this.booked = true;
+    this.bookedMessage = `Booked ${this.newParticipants} participants for ${
+      this.activity.price * this.newParticipants
+    } dollars`;
     if (this.totalParticipants === this.activity.maxParticipants) {
       this.activity.status = 'sold-out';
       return;

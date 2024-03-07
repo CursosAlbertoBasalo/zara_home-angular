@@ -29,7 +29,7 @@
       </button>
     </div>
     <div *ngIf="booked">
-      <p>{{ getBookedMessage() }}</p>
+      <p>{{ bookedMessage }}</p>
       <ul>
         <li *ngFor="let participant of newParticipantsData">
           🏃‍♂️ {{ getParticipantsMessage(participant) }}
