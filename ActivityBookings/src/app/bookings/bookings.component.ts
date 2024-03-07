@@ -12,7 +12,9 @@ export class BookingsComponent {
 
   public currentParticipants: number = 2;
 
-  public newParticipants: number = 1;
+  public newParticipants: number = 0;
+
+  public newParticipantsData: any[] = [];
 
   public totalParticipants: number =
     this.currentParticipants + this.newParticipants;
@@ -34,6 +36,10 @@ export class BookingsComponent {
     } dollars`;
   }
 
+  public getParticipantsMessage(participant: any): string {
+    return `Participant ${participant.id}: ${participant.name} (${participant.age} years old)`;
+  }
+
   // public getTotalParticipants(): number {
   //   return this.currentParticipants + this.newParticipants;
   // }
@@ -46,6 +52,14 @@ export class BookingsComponent {
     this.totalParticipants = this.currentParticipants + this.newParticipants;
     //this.disableBookingButton =
     this.newParticipants === 0;
+    this.newParticipantsData = [];
+    for (let i = 0; i < this.newParticipants; i++) {
+      this.newParticipantsData.push({
+        id: i + 1,
+        name: 'Name_' + (i + 1),
+        age: 3 * i + 7,
+      });
+    }
   }
 
   public onBookClick() {
