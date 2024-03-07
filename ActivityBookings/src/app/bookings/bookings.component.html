@@ -9,25 +9,27 @@
     </div>
   </header>
   <main>
-    <p>Participants: {{ currentParticipants }}</p>
-    <p>
-      Range participation: {{ activity.minParticipants }} -
-      {{ activity.maxParticipants }}
-    </p>
+    <p>{{ activityRangeMessage }}</p>
+    <p>Current Participants: {{ currentParticipants }}</p>
     <p>Total Participants: {{ totalParticipants }}</p>
   </main>
   <footer>
-    <label for="newParticipants">How many participants want to book?</label>
-    <input
-      name="newParticipants"
-      type="number"
-      [max]="maxNewParticipants"
-      min="0"
-      [value]="newParticipants"
-      (change)="onNewParticipantsChange($event)"
-    />
-    <button [disabled]="getDisableBookingButton()" (click)="onBookClick()">
-      Book now!
-    </button>
+    <div *ngIf="!booked">
+      <label for="newParticipants">How many participants want to book?</label>
+      <input
+        name="newParticipants"
+        type="number"
+        [max]="maxNewParticipants"
+        min="0"
+        [value]="newParticipants"
+        (change)="onNewParticipantsChange($event)"
+      />
+      <button [disabled]="getDisableBookingButton()" (click)="onBookClick()">
+        Book now!
+      </button>
+    </div>
+    <div *ngIf="booked">
+      <p>{{ getBookedMessage() }}</p>
+    </div>
   </footer>
 </article>

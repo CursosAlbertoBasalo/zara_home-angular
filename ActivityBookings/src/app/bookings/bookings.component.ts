@@ -22,8 +22,16 @@ export class BookingsComponent {
 
   public booked: boolean = false;
 
+  public activityRangeMessage: string = `The activity is available for ${this.activity.minParticipants} to ${this.activity.maxParticipants} participants`;
+
   public getDisableBookingButton(): boolean {
-    return this.booked || this.newParticipants === 0;
+    return this.newParticipants === 0;
+  }
+
+  public getBookedMessage(): string {
+    return `Booked ${this.totalParticipants} participants for ${
+      this.activity.price * this.totalParticipants
+    } dollars`;
   }
 
   // public getTotalParticipants(): number {
@@ -36,7 +44,8 @@ export class BookingsComponent {
     console.log('el input ha cambiado', value);
     this.newParticipants = parseInt(value, 10);
     this.totalParticipants = this.currentParticipants + this.newParticipants;
-    //this.disableBookingButton = this.newParticipants === 0;
+    //this.disableBookingButton =
+    this.newParticipants === 0;
   }
 
   public onBookClick() {
@@ -46,7 +55,7 @@ export class BookingsComponent {
       this.activity.status = 'sold-out';
       return;
     }
-    if (this.totalParticipants > this.activity.minParticipants) {
+    if (this.totalParticipants >= this.activity.minParticipants) {
       this.activity.status = 'confirmed';
       return;
     }
