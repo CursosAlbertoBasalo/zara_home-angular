@@ -51,8 +51,7 @@ export class BookingsComponent {
     console.log('el input ha cambiado', value);
     this.newParticipants = parseInt(value, 10);
     this.totalParticipants = this.currentParticipants + this.newParticipants;
-    //this.disableBookingButton =
-    this.newParticipants === 0;
+    //this.disableBookingButton = this.newParticipants === 0;
     this.newParticipantsData = [];
     for (let i = 0; i < this.newParticipants; i++) {
       this.newParticipantsData.push({
