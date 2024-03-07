@@ -16,7 +16,7 @@ export class FooterComponent {
 
   constructor() {
     console.log('construir footer');
-    this.author = { ...this.author, name: 'Ivan' };
+    this.author = { ...this.author, name: 'Alberto' };
     this.year = this.getYear().toLocaleString();
   }
 

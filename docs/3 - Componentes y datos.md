@@ -42,12 +42,15 @@ export class FooterComponent {
 }
 ```
 
+> Session 1
+
 ## 3.2 Pipes y estilos
 
-````html
-Carpeta `shared/domain` con modelos de datos Crear booking component para ver una activity y reservarla ```bash ng g c
-bookings
-````
+Carpeta `shared/domain` con modelos de datos Crear booking component para ver una activity y reservarla
+
+```bash
+ng g c bookings
+```
 
 ```html
 <!-- app.component.html -->
@@ -181,6 +184,7 @@ export class BookingsComponent {
     const input = event.target as HTMLInputElement;
     const participants: number = parseInt(input.value);
     this.newParticipants = participants;
+    // this.totalParticipants = this.alreadyParticipants + this.newParticipants;
     console.log("New participants:", participants);
   }
   onBookClick(): void {
