@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ACTIVITIES } from '../shared/models/activities.data';
-import { Activity } from '../shared/models/activity.type';
-import { Participant } from '../shared/models/participant.type';
+import { ActivatedRoute } from '@angular/router';
+import { ACTIVITIES } from '../../shared/models/activities.data';
+import { Activity } from '../../shared/models/activity.type';
+import { Participant } from '../../shared/models/participant.type';
 
 @Component({
   selector: 'lab-bookings',
@@ -11,7 +12,7 @@ import { Participant } from '../shared/models/participant.type';
 })
 export class BookingsComponent {
   /** Activity object selecto from the array */
-  public activity: Activity = ACTIVITIES[3];
+  public activity: Activity = ACTIVITIES[0];
 
   /**  Supposed already booked places */
   public currentParticipants: number = 2;
@@ -49,6 +50,12 @@ export class BookingsComponent {
   public getParticipantsMessage(participant: any): string {
     // ToDo: Should be substituted with th participant pipe
     return `Participant ${participant.id}: ${participant.name} (${participant.age} years old)`;
+  }
+
+  public activitySlug: string = '';
+
+  constructor(route: ActivatedRoute) {
+    this.activitySlug = route.snapshot.params['slug'];
   }
 
   /** Event handler fired when the inout elements has user changes */

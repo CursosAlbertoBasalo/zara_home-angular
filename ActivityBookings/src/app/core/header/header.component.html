@@ -1,11 +1,11 @@
 <header>
   <nav>
     <ul>
-      <a routerLink="/" class="title">{{ title }}</a>
+      <a [routerLink]="['/']" class="title">{{ title }}</a>
     </ul>
     <ul>
       <li>
-        <a [routerLink]="['/', 'auth', 'login']">Login</a>
+        <a [routerLink]="'/auth/login'">Login</a>
       </li>
       <li>
         <a [routerLink]="['/', 'auth', 'register']">Register</a>
