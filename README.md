@@ -1,6 +1,6 @@
 # Zara_Home Angular
 
-Laboratorio para [curso de Angular Clásico V15 para ZaraHome](./docs/0%20-%20Angular%20Clásico%20V15.md) impartido por [Alberto Basalo](https://albertobasalo.dev)
+[Laboratorio ejemplo](https://github.com/CursosAlbertoBasalo/zara_home-angular) para curso de [Angular Clásico V15 para ZaraHome](./docs/0%20-%20Angular%20Clásico%20V15.md) impartido por [Alberto Basalo](https://albertobasalo.dev)
 
 > [!NOTE]
 > Angular sample _Activity Bookings_ application is at [ActivityBookings](./ActivityBookings) folder
