@@ -40,17 +40,22 @@ export class BookingsComponent {
   /** Feedback message whe the booking is saved */
   public bookedMessage: string = '';
 
+  /** Activity slug got from the router */
+  public activitySlug: string = '';
+
+  /**
+   * Component constructor
+   * @param route The router service injected by Angular
+   */
+  constructor(route: ActivatedRoute) {
+    // Get the activity slug from the router
+    this.activitySlug = route.snapshot.params['slug'];
+  }
+
   /** Function to enable or disable the booking button */
   public getDisableBookingButton(): boolean {
     // Fast and cheap to run, even if called multiple times.
     return this.newParticipants === 0;
-  }
-
-  /** Activity slug got from the router */
-  public activitySlug: string = '';
-
-  constructor(route: ActivatedRoute) {
-    this.activitySlug = route.snapshot.params['slug'];
   }
 
   /** Event handler fired when the input elements has user changes */
@@ -60,7 +65,6 @@ export class BookingsComponent {
     console.log('el input ha cambiado', value);
     this.newParticipants = parseInt(value, 10);
     this.totalParticipants = this.currentParticipants + this.newParticipants;
-    //this.disableBookingButton = this.newParticipants === 0;
     // create a fake array of participants
     this.newParticipantsData = [];
     for (let i = 0; i < this.newParticipants; i++) {

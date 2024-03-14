@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingsComponent } from './views/bookings/bookings.component';
 
+/** Array of route objects, linking a path with a component or a lazy router module */
 const routes: Routes = [
   {
     path: '',
