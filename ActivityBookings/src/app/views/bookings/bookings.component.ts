@@ -12,7 +12,7 @@ import { Participant } from '../../shared/models/participant.type';
 })
 export class BookingsComponent {
   /** Activity object selecto from the array */
-  public activity: Activity = ACTIVITIES[0];
+  public activity: Activity = NULL_ACTIVITY;
 
   /**  Supposed already booked places */
   public currentParticipants: number = 2;
@@ -37,6 +37,10 @@ export class BookingsComponent {
   /** Message indicating the range of places available*/
   public activityRangeMessage: string = `The activity is available for ${this.activity.minParticipants} to ${this.activity.maxParticipants} participants`;
 
+  public getActivityRangeMessage(): string {
+    return `The activity is available for ${this.activity.minParticipants} to ${this.activity.maxParticipants} participants`;
+  }
+
   /** Feedback message whe the booking is saved */
   public bookedMessage: string = '';
 
@@ -53,6 +57,7 @@ export class BookingsComponent {
     this.activity =
       ACTIVITIES.find((activity) => activity.slug === this.activitySlug) ||
       NULL_ACTIVITY;
+    // this.activityRangeMessage = `The activity is available for ${this.activity.minParticipants} to ${this.activity.maxParticipants} participants`;
   }
 
   /** Function to enable or disable the booking button */
