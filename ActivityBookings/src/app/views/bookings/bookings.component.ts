@@ -46,19 +46,14 @@ export class BookingsComponent {
     return this.newParticipants === 0;
   }
 
-  /** Function to return a message for each participant */
-  public getParticipantsMessage(participant: any): string {
-    // ToDo: Should be substituted with th participant pipe
-    return `Participant ${participant.id}: ${participant.name} (${participant.age} years old)`;
-  }
-
+  /** Activity slug got from the router */
   public activitySlug: string = '';
 
   constructor(route: ActivatedRoute) {
     this.activitySlug = route.snapshot.params['slug'];
   }
 
-  /** Event handler fired when the inout elements has user changes */
+  /** Event handler fired when the input elements has user changes */
   public onNewParticipantsChange(event: any) {
     const input: HTMLInputElement = event.target;
     const value = input.value;
@@ -66,6 +61,7 @@ export class BookingsComponent {
     this.newParticipants = parseInt(value, 10);
     this.totalParticipants = this.currentParticipants + this.newParticipants;
     //this.disableBookingButton = this.newParticipants === 0;
+    // create a fake array of participants
     this.newParticipantsData = [];
     for (let i = 0; i < this.newParticipants; i++) {
       this.newParticipantsData.push({
