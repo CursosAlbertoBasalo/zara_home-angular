@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ACTIVITIES } from '../../shared/models/activities.data';
+import { Observable, map, tap } from 'rxjs';
 import { Activity, NULL_ACTIVITY } from '../../shared/models/activity.type';
 import { Participant } from '../../shared/models/participant.type';
 
@@ -11,8 +12,11 @@ import { Participant } from '../../shared/models/participant.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookingsComponent {
+  private url: string = 'http://localhost:3000/activities';
+
   /** Activity object selecto from the array */
   public activity: Activity = NULL_ACTIVITY;
+  public activity$: Observable<Activity>;
 
   /**  Supposed already booked places */
   public currentParticipants: number = 2;
@@ -44,20 +48,18 @@ export class BookingsComponent {
   /** Feedback message whe the booking is saved */
   public bookedMessage: string = '';
 
-  /** Activity slug got from the router */
-  public activitySlug: string = '';
-
   /**
    * Component constructor
    * @param route The router service injected by Angular
    */
-  constructor(route: ActivatedRoute) {
+  constructor(route: ActivatedRoute, private http: HttpClient) {
     // Get the activity slug from the router
-    this.activitySlug = route.snapshot.params['slug'];
-    this.activity =
-      ACTIVITIES.find((activity) => activity.slug === this.activitySlug) ||
-      NULL_ACTIVITY;
-    // this.activityRangeMessage = `The activity is available for ${this.activity.minParticipants} to ${this.activity.maxParticipants} participants`;
+    const activitySlug = route.snapshot.params['slug'];
+    const slugUrl = `${this.url}?slug=${activitySlug}`;
+    this.activity$ = this.http.get<Activity[]>(slugUrl).pipe(
+      map((activities: Activity[]) => activities[0]),
+      tap((activity: Activity) => (this.activity = activity))
+    );
   }
 
   /** Function to enable or disable the booking button */
