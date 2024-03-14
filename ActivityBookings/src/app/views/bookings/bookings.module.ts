@@ -7,6 +7,5 @@ import { BookingsComponent } from './bookings.component';
 @NgModule({
   declarations: [BookingsComponent],
   imports: [CommonModule, BookingsRoutingModule, SharedModule],
-  providers: [],
 })
 export class BookingsModule {}
