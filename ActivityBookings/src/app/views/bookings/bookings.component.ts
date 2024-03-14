@@ -51,6 +51,7 @@ export class BookingsComponent {
   /**
    * Component constructor
    * @param route The router service injected by Angular
+   * @param http The HttpClient service injected by Angular
    */
   constructor(route: ActivatedRoute, private http: HttpClient) {
     // Get the activity slug from the router
