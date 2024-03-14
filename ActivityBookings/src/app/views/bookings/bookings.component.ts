@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ACTIVITIES } from '../../shared/models/activities.data';
-import { Activity } from '../../shared/models/activity.type';
+import { Activity, NULL_ACTIVITY } from '../../shared/models/activity.type';
 import { Participant } from '../../shared/models/participant.type';
 
 @Component({
@@ -50,6 +50,9 @@ export class BookingsComponent {
   constructor(route: ActivatedRoute) {
     // Get the activity slug from the router
     this.activitySlug = route.snapshot.params['slug'];
+    this.activity =
+      ACTIVITIES.find((activity) => activity.slug === this.activitySlug) ||
+      NULL_ACTIVITY;
   }
 
   /** Function to enable or disable the booking button */
