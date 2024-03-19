@@ -12,9 +12,9 @@ import { Activity } from 'src/app/shared/models/activity.type';
 export class HomeComponent {
   private url: string = 'http://localhost:3000/activities';
 
-  public activities$: Observable<Activity[]> = this.http.get<Activity[]>(
-    this.url
-  );
+  public activities$: Observable<Activity[]> = this.http
+    .get<Activity[]>(this.url)
+    .pipe();
 
   constructor(private http: HttpClient) {}
 }

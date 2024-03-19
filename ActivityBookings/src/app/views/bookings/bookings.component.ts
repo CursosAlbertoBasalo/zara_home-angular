@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { Activity, NULL_ACTIVITY } from '../../shared/models/activity.type';
 import { Participant } from '../../shared/models/participant.type';
 
@@ -57,9 +57,17 @@ export class BookingsComponent {
     // Get the activity slug from the router
     const activitySlug = route.snapshot.params['slug'];
     const slugUrl = `${this.url}?slug=${activitySlug}`;
+
     this.activity$ = this.http.get<Activity[]>(slugUrl).pipe(
-      map((activities: Activity[]) => activities[0]),
-      tap((activity: Activity) => (this.activity = activity))
+      map((activities: Activity[]) => {
+        return activities[0] || NULL_ACTIVITY;
+      }),
+      catchError(() => {
+        return of(NULL_ACTIVITY);
+      }),
+      tap((activity: Activity) => {
+        this.activity = activity;
+      })
     );
   }
 
@@ -90,18 +98,48 @@ export class BookingsComponent {
 
   /** Event handler fired whe user clicks the booking button */
   public onBookClick() {
-    console.log('Reservar actividad', this.totalParticipants);
-    this.booked = true;
-    this.bookedMessage = `Booked ${this.newParticipants} participants for ${
-      this.activity.price * this.newParticipants
-    } dollars`;
-    if (this.totalParticipants === this.activity.maxParticipants) {
-      this.activity.status = 'sold-out';
-      return;
-    }
-    if (this.totalParticipants >= this.activity.minParticipants) {
-      this.activity.status = 'confirmed';
-      return;
-    }
+    const newBooking = {
+      id: 0,
+      activityId: this.activity.id,
+      userId: 0,
+      date: new Date(),
+      participants: this.newParticipants,
+      payment: {
+        method: 'none',
+        amount: this.activity.price * this.newParticipants,
+        status: 'none',
+      },
+    };
+    console.log('Nueva reserva', newBooking);
+    this.http
+      .post('http://localhost:3000/bookings', newBooking)
+      .pipe(
+        tap((result) => {
+          console.log('Respuesta recibida', result);
+          console.log('Reservada actividad', this.totalParticipants);
+          this.booked = true;
+          this.bookedMessage = `Booked ${
+            this.newParticipants
+          } participants for ${
+            this.activity.price * this.newParticipants
+          } dollars`;
+          if (this.totalParticipants === this.activity.maxParticipants) {
+            this.activity.status = 'sold-out';
+          }
+          if (this.totalParticipants >= this.activity.minParticipants) {
+            this.activity.status = 'confirmed';
+          }
+          this.http
+            .put(`${this.url}/${this.activity.id}`, this.activity)
+            .subscribe((result) => {
+              console.log('Actividad actualizada', result);
+            });
+        }),
+        catchError((error) => {
+          console.error('Error al reservar', error);
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 }
