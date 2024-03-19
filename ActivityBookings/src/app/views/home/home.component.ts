@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Activity } from 'src/app/shared/models/activity.type';
+import { HomeService } from './home.service';
 
 @Component({
   selector: 'lab-home',
@@ -10,24 +10,13 @@ import { Activity } from 'src/app/shared/models/activity.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  private url: string = 'http://localhost:3000/activities';
+  public favorites: string[] = this.service.favorites;
 
-  public favorites: string[] = [
-    'standup-surfing_laco-di-como_2023-08-01',
-    'kayaking-grand_canyon_2024-07-14',
-  ];
-  public activities$: Observable<Activity[]> = this.http
-    .get<Activity[]>(this.url)
-    .pipe();
+  public activities$: Observable<Activity[]> = this.service.getActivities$();
 
-  constructor(private http: HttpClient) {}
+  constructor(private service: HomeService) {}
 
   public onToggleFavorite(slug: string): void {
-    const index = this.favorites.indexOf(slug);
-    if (index === -1) {
-      this.favorites.push(slug);
-    } else {
-      this.favorites.splice(index, 1);
-    }
+    this.service.toggleFavorite(slug);
   }
 }
