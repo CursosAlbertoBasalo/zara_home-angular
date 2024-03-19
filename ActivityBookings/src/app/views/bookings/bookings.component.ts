@@ -18,6 +18,9 @@ export class BookingsComponent {
   public activity: Activity = NULL_ACTIVITY;
   public activity$: Observable<Activity>;
 
+  public bookingSaved$: Observable<boolean> = of(false);
+  public activitySaved$: Observable<boolean> = of(false);
+
   /**  Supposed already booked places */
   public currentParticipants: number = 2;
 
@@ -111,7 +114,7 @@ export class BookingsComponent {
       },
     };
     console.log('Nueva reserva', newBooking);
-    this.http
+    this.bookingSaved$ = this.http
       .post('http://localhost:3000/bookings', newBooking)
       .pipe(
         tap((result) => {
@@ -129,17 +132,15 @@ export class BookingsComponent {
           if (this.totalParticipants >= this.activity.minParticipants) {
             this.activity.status = 'confirmed';
           }
-          this.http
+          this.activitySaved$ = this.http
             .put(`${this.url}/${this.activity.id}`, this.activity)
-            .subscribe((result) => {
-              console.log('Actividad actualizada', result);
-            });
+            .pipe(map(() => true));
         }),
+        map(() => true),
         catchError((error) => {
           console.error('Error al reservar', error);
-          return of(null);
+          return of(false);
         })
-      )
-      .subscribe();
+      );
   }
 }

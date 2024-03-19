@@ -282,6 +282,30 @@
         "amount": 120,
         "status": "none"
       }
+    },
+    {
+      "id": 6,
+      "activityId": 15,
+      "userId": 0,
+      "date": "2024-03-19T15:07:31.114Z",
+      "participants": 7,
+      "payment": {
+        "method": "none",
+        "amount": 210,
+        "status": "none"
+      }
+    },
+    {
+      "id": 7,
+      "activityId": 15,
+      "userId": 0,
+      "date": "2024-03-19T15:14:21.435Z",
+      "participants": 7,
+      "payment": {
+        "method": "none",
+        "amount": 210,
+        "status": "none"
+      }
     }
   ],
   "users": [
