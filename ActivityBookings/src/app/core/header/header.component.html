@@ -4,6 +4,10 @@
       <a [routerLink]="['/']" class="title">{{ title }}</a>
     </ul>
     <ul>
+      <lab-link-favs
+        *ngIf="favoritesCount$ | async as favCount"
+        [count]="favCount"
+      ></lab-link-favs>
       <li>
         <a [routerLink]="'/auth/login'">Login</a>
       </li>
