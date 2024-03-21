@@ -1,11 +1,11 @@
 # Zara_Home Angular
 
-[Laboratorio ejemplo](https://github.com/CursosAlbertoBasalo/zara_home-angular) para curso de [Angular Clásico V15 para ZaraHome](./docs/0%20-%20Angular%20Clásico%20V15.md) impartido por [Alberto Basalo](https://albertobasalo.dev)
+[Laboratorio ejemplo](https://github.com/CursosAlbertoBasalo/zara_home-angular) para curso de [Angular Clásico V15 para ZaraHome](./docs/0%20-%20Angular%20Clásico%20V15.md) impartido por [Alberto Basalo](https://albertobasalo.dev) para Zara Home IT.
 
 > [!NOTE]
-> Angular sample _Activity Bookings_ application is at [ActivityBookings](./ActivityBookings) folder
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
+> This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version _15.2.0._
+> Sample project is at `ActivityBookings` folder.
+> Original and **updated** demo lab is at [https://github.com/albertobasalo/nc-lab](https://github.com/albertobasalo/nc-lab)
 
 ```bash
 # clone lab from github
